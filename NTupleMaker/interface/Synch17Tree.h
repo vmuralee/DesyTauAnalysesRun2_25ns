@@ -112,6 +112,11 @@ public :
   Float_t         ipx_bs_uncorr_1;
   Float_t         ipy_bs_uncorr_1;
   Float_t         ipz_bs_uncorr_1;
+
+  Float_t         ipnx_uncorr_1; 
+  Float_t         ipny_uncorr_1; 
+  Float_t         ipnz_uncorr_1; 
+
   Float_t         gen_ipx_1;
   Float_t         gen_ipy_1;
   Float_t         gen_ipz_1;
@@ -192,6 +197,11 @@ public :
   Float_t         ipx_bs_uncorr_2;
   Float_t         ipy_bs_uncorr_2;
   Float_t         ipz_bs_uncorr_2;
+
+  Float_t         ipnx_uncorr_2; 
+  Float_t         ipny_uncorr_2; 
+  Float_t         ipnz_uncorr_2;
+
   Float_t         gen_ipx_2;
   Float_t         gen_ipy_2;
   Float_t         gen_ipz_2;
@@ -233,7 +243,8 @@ public :
   Float_t 	  neta_2;
   Float_t 	  nphi_2;
   Float_t 	  nm_2;
-
+  Float_t         ChargePion_1; 
+  Float_t         ChargePion_2;
   //TO FIX
   Float_t         againstElectronLooseMVA6_1;
   Float_t         againstElectronMediumMVA6_1;
@@ -328,6 +339,34 @@ public :
   Float_t    MVADM2017v1DM1raw_2;
   Float_t    MVADM2017v1DM2raw_2;
   Float_t    MVADM2017v1DMotherraw_2;
+  //For tt 
+  Float_t	   byLooseDeepTau2017v2p1VSe_1;	 
+  Float_t	   byLooseDeepTau2017v2p1VSjet_1;	 
+  Float_t	   byLooseDeepTau2017v2p1VSmu_1;	 
+  Float_t	   byMediumDeepTau2017v2p1VSe_1;	 
+  Float_t	   byMediumDeepTau2017v2p1VSjet_1;	 
+  Float_t	   byMediumDeepTau2017v2p1VSmu_1;	 
+  Float_t	   byTightDeepTau2017v2p1VSe_1;	 
+  Float_t	   byTightDeepTau2017v2p1VSjet_1;	 
+  Float_t	   byTightDeepTau2017v2p1VSmu_1;	 
+  Float_t	   byVLooseDeepTau2017v2p1VSe_1;	 
+  Float_t	   byVLooseDeepTau2017v2p1VSjet_1;	 
+  Float_t	   byVLooseDeepTau2017v2p1VSmu_1;	 
+  Float_t	   byVTightDeepTau2017v2p1VSe_1;	 
+  Float_t	   byVTightDeepTau2017v2p1VSjet_1;	 
+  Float_t	   byVVLooseDeepTau2017v2p1VSe_1;	 
+  Float_t	   byVVLooseDeepTau2017v2p1VSjet_1;	 
+  Float_t	   byVVTightDeepTau2017v2p1VSe_1;	 
+  Float_t	   byVVTightDeepTau2017v2p1VSjet_1;	 
+  Float_t	   byVVVLooseDeepTau2017v2p1VSe_1;	 
+  Float_t	   byVVVLooseDeepTau2017v2p1VSjet_1;	 
+ 
+  Float_t    MVADM2017v1DM0raw_1; 
+  Float_t    MVADM2017v1DM10raw_1; 
+  Float_t    MVADM2017v1DM11raw_1; 
+  Float_t    MVADM2017v1DM1raw_1; 
+  Float_t    MVADM2017v1DM2raw_1; 
+  Float_t    MVADM2017v1DMotherraw_1; 
 
   // new 
   Float_t         idisoweight_2;
@@ -526,7 +565,7 @@ public :
   Float_t         pzetavis;
   Float_t         pzetamiss;
   Float_t         pzeta;
-
+  Double_t        met_var_qcd; 
   //PUPPI MET
   Float_t         puppimet;
   Float_t         puppimetphi;  
@@ -658,6 +697,41 @@ public :
   Float_t         acotautau_helix_uncorr_01;
   Float_t         acotautau_helix_uncorr_11;
 
+  //Variable used for the IP studies
+  Float_t         acotautau_helix_IPIP_pi40_pionA1; 
+  Float_t         acotautau_helix_IPIP_pi40_pvBS_pionA1; 
+  Float_t         acotautau_helix_IPIP_less40_pionA1; 
+  Float_t         acotautau_helix_IPDP_pionA1; 
+ 
+  Float_t         acotautau_helix_DPIP_pi40_rhoA1; 
+  Float_t         acotautau_helix_IPIP_pi40_rhoA1; 
+  Float_t         acotautau_helix_DPIP_pi40_pvBS_rhoA1; 
+  Float_t         acotautau_helix_DPDP_rhoA1; 
+ 
+  Float_t         acotautau_helix_IPDP_pi40_A1A1; 
+  Float_t         acotautau_helix_DPIP_pi40_A1A1; 
+  Float_t         acotautau_helix_IPIP_pi40_A1A1; 
+  Float_t         acotautau_helix_DPDP_A1A1; 
+ 
+  Float_t         acotautau_helix_IPDP_pi40_pvBS_A1A1; 
+  Float_t         acotautau_helix_DPIP_pi40_pvBS_A1A1; 
+  Float_t         acotautau_helix_IPIP_pi40_pvBS_A1A1; 
+ 
+  Float_t         acotautau_helix_IPIP_pi40_pionRho; 
+  Float_t         acotautau_helix_IPIP_less40_pionRho; 
+  Float_t         acotautau_helix_IPDP_pionRho; 
+  Float_t         acotautau_helix_IPIP_pi40_RhoRho; 
+  Float_t         acotautau_helix_IPDP_pi40_RhoRho; 
+  Float_t         acotautau_helix_DPDP_pionRho; 
+ 
+  Float_t         acotautau_helix_IPDP_pi40_RhoA3Prong; 
+  Float_t         acotautau_helix_DPDP_RhoA3Prong; 
+  Float_t         acotautau_helix_IPDP_PionA3Prong; 
+ 
+  Float_t         acotautau_helix_IPDP_pi40_A1A1_3Prong; 
+  Float_t         acotautau_helix_DPDP_A1A1_3Prong; 
+
+  Float_t         MT2;   
   //Merijn add acotau for psi:
   Float_t         acotautauPsi_00;
   Float_t         acotautauPsi_10;
@@ -826,6 +900,10 @@ public :
   TBranch	 *b_ipy_bs_uncorr_1;
   TBranch	 *b_ipz_bs_uncorr_1;
 
+  TBranch	 *b_ipnx_uncorr_1; 
+  TBranch	 *b_ipny_uncorr_1; 
+  TBranch	 *b_ipnz_uncorr_1; 
+
   TBranch	 *b_gen_ipx_1;
   TBranch	 *b_gen_ipy_1;
   TBranch	 *b_gen_ipz_1;
@@ -916,6 +994,10 @@ public :
   TBranch	 *b_ipy_uncorr_2;
   TBranch	 *b_ipz_uncorr_2;
 
+  TBranch	 *b_ipnx_uncorr_2; 
+  TBranch	 *b_ipny_uncorr_2; 
+  TBranch	 *b_ipnz_uncorr_2; 
+
   TBranch	 *b_ipx_bs_uncorr_2;
   TBranch	 *b_ipy_bs_uncorr_2;
   TBranch	 *b_ipz_bs_uncorr_2;
@@ -948,6 +1030,9 @@ public :
   TBranch  *b_neta_2;
   TBranch  *b_nphi_2;
   TBranch  *b_nm_2;
+
+  TBranch  *b_ChargePion_1; 
+  TBranch  *b_ChargePion_2; 
 
   //TO FIX
   TBranch	 *b_againstElectronLooseMVA6_1;
@@ -1010,6 +1095,33 @@ public :
   TBranch    *b_MVADM2017v1DM1raw_2;
   TBranch    *b_MVADM2017v1DM2raw_2;
   TBranch    *b_MVADM2017v1DMotherraw_2;
+  TBranch	   *b_byLooseDeepTau2017v2p1VSe_1;	 
+  TBranch	   *b_byLooseDeepTau2017v2p1VSjet_1;	 
+  TBranch	   *b_byLooseDeepTau2017v2p1VSmu_1;	 
+  TBranch	   *b_byMediumDeepTau2017v2p1VSe_1;	 
+  TBranch	   *b_byMediumDeepTau2017v2p1VSjet_1;	 
+  TBranch	   *b_byMediumDeepTau2017v2p1VSmu_1;	 
+  TBranch	   *b_byTightDeepTau2017v2p1VSe_1;	 
+  TBranch	   *b_byTightDeepTau2017v2p1VSjet_1;	 
+  TBranch	   *b_byTightDeepTau2017v2p1VSmu_1;	 
+  TBranch	   *b_byVLooseDeepTau2017v2p1VSe_1;	 
+  TBranch	   *b_byVLooseDeepTau2017v2p1VSjet_1;	 
+  TBranch	   *b_byVLooseDeepTau2017v2p1VSmu_1;	 
+  TBranch	   *b_byVTightDeepTau2017v2p1VSe_1;	 
+  TBranch	   *b_byVTightDeepTau2017v2p1VSjet_1;	 
+  TBranch	   *b_byVVLooseDeepTau2017v2p1VSe_1;	 
+  TBranch	   *b_byVVLooseDeepTau2017v2p1VSjet_1;	 
+  TBranch	   *b_byVVTightDeepTau2017v2p1VSe_1;	 
+  TBranch	   *b_byVVTightDeepTau2017v2p1VSjet_1;	 
+  TBranch	   *b_byVVVLooseDeepTau2017v2p1VSe_1;	 
+  TBranch	   *b_byVVVLooseDeepTau2017v2p1VSjet_1;	 
+ 
+  TBranch    *b_MVADM2017v1DM0raw_1; 
+  TBranch    *b_MVADM2017v1DM10raw_1; 
+  TBranch    *b_MVADM2017v1DM11raw_1; 
+  TBranch    *b_MVADM2017v1DM1raw_1; 
+  TBranch    *b_MVADM2017v1DM2raw_1; 
+  TBranch    *b_MVADM2017v1DMotherraw_1; 
 
   ///////////////////////////////////////////////////////////NEW
   TBranch	 *b_efficiency_byVVLooseIsolationMVArun2017v2DBoldDMwLT2017_1;
@@ -1236,7 +1348,7 @@ public :
   TBranch	 *b_pzetavis;
   TBranch	 *b_pzetamiss;
   TBranch        *b_pzeta;
-
+  TBranch        *b_met_var_qcd; 
   //PUPPI MET
   TBranch	 *b_puppimet;
   TBranch	 *b_puppimetphi;
@@ -1357,6 +1469,42 @@ public :
   TBranch        *b_acotautauPsi_11;
   TBranch	 *b_pdgcodetau2;
 
+  // Variables used for IP Studies
+  TBranch        *b_MT2;
+  TBranch        *b_acotautau_helix_IPIP_pi40_pionA1; 
+  TBranch        *b_acotautau_helix_IPIP_pi40_pvBS_pionA1; 
+  TBranch        *b_acotautau_helix_IPIP_less40_pionA1; 
+  TBranch        *b_acotautau_helix_IPDP_pionA1; 
+ 
+  TBranch        *b_acotautau_helix_IPIP_pi40_rhoA1; 
+  TBranch        *b_acotautau_helix_DPIP_pi40_rhoA1; 
+  TBranch        *b_acotautau_helix_DPIP_pi40_pvBS_rhoA1; 
+  TBranch        *b_acotautau_helix_DPDP_rhoA1; 
+ 
+  TBranch        *b_acotautau_helix_IPIP_pi40_A1A1; 
+  TBranch        *b_acotautau_helix_IPDP_pi40_A1A1; 
+  TBranch        *b_acotautau_helix_DPIP_pi40_A1A1; 
+  TBranch        *b_acotautau_helix_DPDP_A1A1; 
+ 
+  TBranch        *b_acotautau_helix_IPIP_pi40_pvBS_A1A1; 
+  TBranch        *b_acotautau_helix_IPDP_pi40_pvBS_A1A1; 
+  TBranch        *b_acotautau_helix_DPIP_pi40_pvBS_A1A1; 
+   
+ 
+  TBranch        *b_acotautau_helix_IPIP_pi40_pionRho; 
+  TBranch        *b_acotautau_helix_IPIP_less40_pionRho; 
+  TBranch        *b_acotautau_helix_IPDP_pionRho; 
+  TBranch        *b_acotautau_helix_IPIP_pi40_RhoRho; 
+  TBranch        *b_acotautau_helix_IPDP_pi40_RhoRho; 
+  TBranch        *b_acotautau_helix_DPDP_pionRho; 
+ 
+  TBranch        *b_acotautau_helix_IPDP_pi40_RhoA3Prong; 
+  TBranch        *b_acotautau_helix_DPDP_RhoA3Prong; 
+  TBranch        *b_acotautau_helix_IPDP_PionA3Prong; 
+ 
+  TBranch        *b_acotautau_helix_IPDP_pi40_A1A1_3Prong; 
+  TBranch        *b_acotautau_helix_DPDP_A1A1_3Prong; 
+ 
   //Points of closest approach
   TBranch        *b_tau_pca2D_x_1;
   TBranch        *b_tau_pca2D_y_1;
