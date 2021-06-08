@@ -3,8 +3,13 @@
 CHANNEL=$1
 
 dirMC=/pnfs/desy.de/cms/tier2/store/user/ywen/ntuples_Apr2020/2016/mc
-dirData=/pnfs/desy.de/cms/tier2/store/user/ywen/ntuples_Apr2020/2016/data
-dirEmbedded=/pnfs/desy.de/cms/tier2/store/user/ywen/ntuples_Apr2020/2016/embedded
+if [[ $CHANNEL == "tt" ]]; then
+    dirData=/pnfs/desy.de/cms/tier2/store/user/mmeyer/ntuples/2016/data
+    dirEmbedded=/nfs/dust/cms/user/dvats/to_make_embedded/CMSSW_10_2_16/src/DesyTauAnalyses/NTupleMaker/test/gridjobs/2016
+else
+    dirData=/pnfs/desy.de/cms/tier2/store/user/ywen/ntuples_Apr2020/2016/data
+    dirEmbedded=/pnfs/desy.de/cms/tier2/store/user/ywen/ntuples_Apr2020/2016/embedded
+fi
 
 if [[ $CHANNEL == "mt" ]]; then
     OUTDIR=./mutau/2016
@@ -12,8 +17,12 @@ else
     if [[ $CHANNEL == "et" ]]; then
 	OUTDIR=./etau/2016
     else
-	echo "ERROR: please run the script with ./make_lists_CP_2016.sh <channel={mt,et}>"
-	exit
+	if [[ $CHANNEL == "tt" ]]; then
+	    OUTDIR=./tautau/2016
+	else
+	    echo "ERROR: please run the script with ./make_lists_CP_2016.sh <channel={mt,et}>"
+	    exit
+	fi
     fi
 fi 
 
@@ -123,4 +132,22 @@ if [[ $CHANNEL == "et" ]]; then
   ls $dirEmbedded/Embedding_eltau_v2/EmbeddingRun2016F_ElTau/*root > $OUTDIR/EmbeddedElTau_Run2016F
   ls $dirEmbedded/Embedding_eltau_v2/EmbeddingRun2016G_ElTau/*root > $OUTDIR/EmbeddedElTau_Run2016G
   ls $dirEmbedded/Embedding_eltau_v2/EmbeddingRun2016H_ElTau/*root > $OUTDIR/EmbeddedElTau_Run2016H
+fi
+
+if [[ $CHANNEL == "tt" ]]; then
+    ls $dirData/Tau/Tau_Run2016B-17Jul2018_ver2-v1/*root > $OUTDIR/Tau_Run2016B
+    ls $dirData/Tau/Tau_Run2016C-17Jul2018-v1/*root > $OUTDIR/Tau_Run2016C
+    ls $dirData/Tau/Tau_Run2016D-17Jul2018-v1/*root > $OUTDIR/Tau_Run2016D
+    ls $dirData/Tau/Tau_Run2016E-17Jul2018-v1/*root > $OUTDIR/Tau_Run2016E
+    ls $dirData/Tau/Tau_Run2016F-17Jul2018-v1/*root > $OUTDIR/Tau_Run2016F
+    ls $dirData/Tau/Tau_Run2016G-17Jul2018-v1/*root > $OUTDIR/Tau_Run2016G
+    ls $dirData/Tau/Tau_Run2016H-17Jul2018-v1/*root > $OUTDIR/Tau_Run2016H
+
+    ls $dirEmbedded/EmbeddingRun2016B_TauTauFinalState-inputDoubleMu_94X_Legacy_miniAOD-v1_USER/*root > $OUTDIR/EmbeddedTauTau_Run2016B
+    ls $dirEmbedded/EmbeddingRun2016C_TauTauFinalState-inputDoubleMu_94X_Legacy_miniAOD-v1_USER/*root > $OUTDIR/EmbeddedTauTau_Run2016C
+    ls $dirEmbedded/EmbeddingRun2016D_TauTauFinalState-inputDoubleMu_94X_Legacy_miniAOD-v3_USER/*root > $OUTDIR/EmbeddedTauTau_Run2016D
+    ls $dirEmbedded/EmbeddingRun2016E_TauTauFinalState-inputDoubleMu_94X_Legacy_miniAOD-v1_USER/*root > $OUTDIR/EmbeddedTauTau_Run2016E
+    ls $dirEmbedded/EmbeddingRun2016F_TauTauFinalState-inputDoubleMu_94X_Legacy_miniAOD-v1_USER/*root > $OUTDIR/EmbeddedTauTau_Run2016F
+    ls $dirEmbedded/EmbeddingRun2016G_TauTauFinalState-inputDoubleMu_94X_Legacy_miniAOD-v1_USER/*root > $OUTDIR/EmbeddedTauTau_Run2016G
+    ls $dirEmbedded/EmbeddingRun2016H_TauTauFinalState-inputDoubleMu_94X_Legacy_miniAOD-v1_USER/*root > $OUTDIR/EmbeddedTauTau_Run2016H
 fi

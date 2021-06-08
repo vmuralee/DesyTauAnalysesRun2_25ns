@@ -571,7 +571,8 @@ void svfit_variables(TString ch, const AC1B *analysisTree, Synch17Tree *otree, c
       int verbosity = 1;
       ClassicSVfit svFitAlgo(verbosity);
       double kappa = 4.; // use 3 for emu, 4 for etau and mutau, 5 for tautau channel
-      
+      if(ch == "tt")
+	kappa = 5;
       svFitAlgo.addLogM_fixed(true, kappa);
       svFitAlgo.integrate(measuredTauLeptons, measuredMETx, measuredMETy, covMET);
       bool isValidSolution = svFitAlgo.isValidSolution();

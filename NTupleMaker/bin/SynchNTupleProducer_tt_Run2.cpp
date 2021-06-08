@@ -134,7 +134,7 @@ int main(int argc, char * argv[]){
   const bool ApplyBTagCP5Correction = cfg.get<bool>("ApplyBTagCP5Correction");
   //const bool ApplyRecoilCorrections = cfg.get<bool>("ApplyRecoilCorrections");
   const bool ApplyIpCorrection = cfg.get<bool>("ApplyIpCorrection");
-  //const bool applyTauSpinnerWeights = cfg.get<bool>("applyTauSpinnerWeights");
+  const bool applyTauSpinnerWeights = cfg.get<bool>("applyTauSpinnerWeights");
   const float dRTrigMatch       = cfg.get<float>("dRTrigMatch");
   //pileup distrib
   const string pileUpInDataFile = cfg.get<string>("pileUpInDataFile");
@@ -144,8 +144,7 @@ int main(int argc, char * argv[]){
   const string ipCorrFileName = cfg.get<string>("IpCorrFileName");
   TString IpCorrFileName(ipCorrFileName);
 
-  TauTriggerSFs2017 *tauTriggerSF = new TauTriggerSFs2017(cmsswBase+"/src/TauAnalysisTools/TauTriggerSFs/data/tauTriggerEfficiencies"+to_string(era)
-							  +".root","ditau",to_string(era),"tight","MVAv2");
+  //TauTriggerSFs2017 *tauTriggerSF = new TauTriggerSFs2017(cmsswBase + "/src/TauAnalysisTools/TauTriggerSFs/data/tauTriggerEfficiencies"+to_string(era) +".root","ditau",to_string(era),"tight",false);//MVAv2
   std::string year;
   if(era==2016)year = "2016Legacy";
   else if(era==2017)year = "2017ReReco";
@@ -179,7 +178,7 @@ int main(int argc, char * argv[]){
   }
   else {
     m_resolution_from_file.reset(new JME::JetResolution(cmsswBase+"/src/DesyTauAnalyses/NTupleMaker/data/JER/Autumn18_V7b_MC_PtResolution_AK4PFchs.txt"));
-    m_scale_factor_from_file.reset(new JME::JetResolutionScaleFactor(cmsswBase+"/src/DesyTauAnalyses/NTupleMaker/data/JER/Autumn18_V7b_MC_SF_AK8PFchs.txt"));    
+    m_scale_factor_from_file.reset(new JME::JetResolutionScaleFactor(cmsswBase+"/src/DesyTauAnalyses/NTupleMaker/data/JER/Autumn18_V7b_MC_SF_AK4PFchs.txt"));    
   }
 
   JME::JetResolution resolution = *m_resolution_from_file;
@@ -253,8 +252,8 @@ int main(int argc, char * argv[]){
   const bool isTauSpinner = infiles.find("Uncorr") != string::npos;
   const bool isTTbar = infiles.find("TT") != string::npos;
 
-  bool applyTauSpinnerWeights = false;
-  if(isTauSpinner) applyTauSpinnerWeights = true;
+  // bool applyTauSpinnerWeights = false;
+  // if(isTauSpinner) applyTauSpinnerWeights = true;
   const bool isEmbedded = cfg.get<bool>("isEmbedded");//infiles.find("Embed") != string::npos;
 
   const bool ApplyRecoilCorrections = cfg.get<bool>("ApplyRecoilCorrections") && !isEmbedded && !isData && (isDY || isWJets || isVBForGGHiggs || isMSSMsignal);
@@ -572,6 +571,9 @@ int main(int argc, char * argv[]){
 
     AC1B analysisTree(_tree, isData);
     
+    double * TSweight = new double[expectedtauspinnerweights];
+    TTree  * _treeTauSpinnerWeights = NULL;
+    
     TTree * _inittree = NULL;
     _inittree = (TTree*)file_->Get(TString(initNtupleName));
     if (_inittree!=NULL) {
@@ -590,9 +592,7 @@ int main(int argc, char * argv[]){
     }
     delete _inittree;
     
-    double * TSweight = new double[expectedtauspinnerweights];
-    TTree  * _treeTauSpinnerWeights = NULL;
-
+  
 
     vector<string> filterDiTau;// = cfg.get<vector<string>>("filterDiTaus");                                                                                                    
     if(era==2018){
@@ -649,12 +649,13 @@ int main(int argc, char * argv[]){
       
       	}
       else{
+
       	otree->TauSpinnerWeightsEven = analysisTree.TauSpinnerWeight[0];
-      	
+
       	gentreeForGoodRecoEvtsOnly->sm_htt125 = analysisTree.TauSpinnerWeight[0];
 
       	otree->TauSpinnerWeightsMaxMix = analysisTree.TauSpinnerWeight[1];
-
+       
       	gentreeForGoodRecoEvtsOnly->mm_htt125 = analysisTree.TauSpinnerWeight[1];
 
       	otree->TauSpinnerWeightsOdd = analysisTree.TauSpinnerWeight[2];
@@ -673,11 +674,11 @@ int main(int argc, char * argv[]){
       }
 
       
-       // if (!isData){
-       // 	 FillGenTree(&analysisTree,gentree);
-       // 	 //cout<<"Gen Tauspinor weight  "<<gentree->sm_htt125<<endl;
-       // 	 gentree->Fill();
-       // }   
+       if (!isData){
+       	 FillGenTree(&analysisTree,gentree);
+       	 //cout<<"Gen Tauspinor weight  "<<gentree->sm_htt125<<endl;
+       	 gentree->Fill();
+       }   
        
 
      
@@ -720,7 +721,7 @@ int main(int argc, char * argv[]){
 	if (otree->embweight>10.0)
 	  cout << "warning : embedding weight = " << otree->embweight << endl;
       }
-      //initializeGenTree(gentree);
+      initializeGenTree(gentree);
       //GenTree Filling
    
       //LOOP OVER TAUS
@@ -1103,7 +1104,9 @@ int main(int argc, char * argv[]){
 				 otree->met*TMath::Cos(otree->metphi)*otree->met*TMath::Cos(otree->metphi)));
       puppimetLV.SetXYZT(otree->puppimet*TMath::Cos(otree->puppimetphi), otree->puppimet*TMath::Sin(otree->puppimetphi), 0,
 			 TMath::Sqrt( otree->puppimet*TMath::Sin(otree->puppimetphi)*otree->puppimet*TMath::Sin(otree->puppimetphi) +
+	
 				      otree->puppimet*TMath::Cos(otree->puppimetphi)*otree->puppimet*TMath::Cos(otree->puppimetphi)));
+      cout<<"OK8"<<endl;
       counter[9]++;
 
 
@@ -1190,13 +1193,14 @@ int main(int argc, char * argv[]){
       if((ApplySVFit||ApplyFastMTT)&& otree->trg_doubletau>0.5&&otree->byMediumDeepTau2017v2p1VSjet_2>0.5){
 	svfit_variables(ch, &analysisTree, otree, &cfg, inputFile_visPtResolution);
       }
+      cout<<"OK9"<<endl;
       counter[10]++;
       // ***********************************
       // ** IPSignificance calibration ->
       // ***********************************
 
-      calculate_MT2(&analysisTree, otree, tauIndex_1, tauIndex_2);
-      acott_Impr_tt(&analysisTree, otree, tauIndex_1, tauIndex_2);
+
+      //acott_Impr_tt(&analysisTree, otree, tauIndex_1, tauIndex_2);
       counter[11]++;
       if ((!isData||isEmbedded) && ApplySystShift) {
 	tauOneProngScaleSys->Eval(utils::TAUTAU);
@@ -1205,8 +1209,9 @@ int main(int argc, char * argv[]){
 	tauThreeProngOnePi0ScaleSys->Eval(utils::TAUTAU);
       }
 
-
-      acott_Impr_tt(&analysisTree, otree, tauIndex_1, tauIndex_2);
+      cout<<"OK10"<<endl;
+      //acott_Impr_tt(&analysisTree, otree, tauIndex_1, tauIndex_2);
+      
       counter[11]++;
 
       otree->Fill();

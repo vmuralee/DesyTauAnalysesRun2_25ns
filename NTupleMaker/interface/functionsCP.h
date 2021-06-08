@@ -1274,7 +1274,7 @@ void gen_acott(const AC1B * analysisTree, Synch17GenTree *gentree, int tauIndex1
   gentree->y2_ZMF =-10;
   gentree->y1_TMF =-10;
   gentree->y2_TMF =-10;
-
+  gentree->MT2 = -10;
   gentree->decaymode_1 = analysisTree->gentau_decayMode[tauIndex1];
   gentree->decaymode_2 = analysisTree->gentau_decayMode[tauIndex2];
 
@@ -1308,6 +1308,8 @@ void gen_acott(const AC1B * analysisTree, Synch17GenTree *gentree, int tauIndex1
   //4-momenta of charged and neutral Pi
   TLorentzVector tau1Prong=gen_chargedPivec(analysisTree,tauIndex1,partId1);
   int piIndex1 = gen_chargedPiIndex(analysisTree,tauIndex1,partId1);
+
+
 
   //Merijn 2019 2 25: add the kinematic information of the constituents
   /*
@@ -1348,6 +1350,18 @@ void gen_acott(const AC1B * analysisTree, Synch17GenTree *gentree, int tauIndex1
   //  std::cout << "Mode1 = " << analysisTree->gentau_decayMode[tauIndex1] << "  Mode2 = " << analysisTree->gentau_decayMode[tauIndex2] << std::endl;
   //  std::cout << "pion1 = " << analysisTree->genparticles_pdgid[piIndex1] << "    pion2 = " << analysisTree->genparticles_pdgid[piIndex2] << std::endl;
 
+
+  //MT2 variable calculation for one-prong decay
+  float AT=0;
+  float TransverseE_1 = TMath::Sqrt(tau1Prong.Pt() * tau1Prong.Pt() + PI_MASS*PI_MASS);
+  float TransverseE_2 = TMath::Sqrt(tau2Prong.Pt() * tau2Prong.Pt() + PI_MASS*PI_MASS);
+  TVector3 prong_vec1 = tau1Prong.Vect();
+  TVector3 prong_vec2 = tau2Prong.Vect();
+
+  AT = TransverseE_1*TransverseE_2 + prong_vec1.X()*prong_vec2.X()+prong_vec1.Y()*prong_vec2.Y() ;
+  gentree->MT2 = AT/1.7;
+
+  
   TLorentzVector tau1IP;
   tau1IP = gen_ipVec(analysisTree,tauIndex1,piIndex1,vertex);
   TLorentzVector tau1Pi0;

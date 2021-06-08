@@ -1,6 +1,6 @@
 #!/bin/bash
 
-### the script is to be run with "./make_config_Run2.sh <year={16,17,18}> <data_type={data, MC, embedded}> <channel={mt,et}>"
+### the script is to be run with "./make_config_Run2.sh <year={16,17,18}> <data_type={data, MC, embedded}> <channel={mt,et,tt}>"
 
 YEAR=$1
 DATA_TYPE=$2
@@ -11,13 +11,17 @@ else
   if [[ $CHANNEL == "et" ]]; then
     OUTDIR=./etau/20$YEAR
   else 
-    echo
-    echo "To produce the scripts for a specific year and either data or MC this script is to be run with a command:"
-    echo
-    echo "  ./make_config_Run2.sh <year={16,17,18}> <data_type={data, MC, embedded}> <channel={mt,et}>"
-    echo
-    echo "channel is not mt or et - exiting"
-    exit
+      if [[ $CHANNEL == "tt" ]]; then
+	OUTDIR=./tautau/20$YEAR
+      else
+	  echo
+	  echo "To produce the scripts for a specific year and either data or MC this script is to be run with a command:"
+	  echo
+	  echo "  ./make_config_Run2.sh <year={16,17,18}> <data_type={data, MC, embedded}> <channel={mt,et,tt}>"
+	  echo
+	  echo "channel is not mt or et - exiting"
+	  exit
+      fi
   fi
 fi
 
@@ -37,7 +41,7 @@ else
       echo
       echo "To produce the scripts for a specific year and either data or MC this script is to be run with a command:"
       echo
-      echo "  ./make_config_Run2.sh <year={16,17,18}> <data_type={data, MC, embedded}> <channel={mt,et}>"
+      echo "  ./make_config_Run2.sh <year={16,17,18}> <data_type={data, MC, embedded}> <channel={mt,et,tt}>"
       echo
       echo "year is not 16, 17 or 18 - exiting"
       exit
@@ -88,7 +92,7 @@ else
       echo
       echo "To produce the scripts for a specific year and either data or MC this script is to be run with a command:"
       echo
-      echo "  ./make_config_Run2.sh <year={16,17,18}> <data_type={data, MC, embedded}> <channel={mt,et}>"
+      echo "  ./make_config_Run2.sh <year={16,17,18}> <data_type={data, MC, embedded}> <channel={mt,et,tt}>"
       echo
       echo "data_type is neither data nor MC - exiting"
       exit

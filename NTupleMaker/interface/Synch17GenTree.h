@@ -30,6 +30,7 @@ public :
   // Declaration of leaf types
   //Event ID
   //Leptons
+  Float_t         MT2;
   Float_t         Higgs_pt;
   Float_t         Higgs_eta;
   Float_t         Higgs_phi;
@@ -104,6 +105,7 @@ public :
   //////////////////////////////////////////////
   //            List of branches              //
   //////////////////////////////////////////////
+  TBranch        *b_MT2;
   TBranch        *b_Higgs_pt;
   TBranch        *b_Higgs_eta;
   TBranch        *b_Higgs_phi;

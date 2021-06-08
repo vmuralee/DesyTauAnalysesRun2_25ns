@@ -1,6 +1,6 @@
 #!/bin/bash
 
-### the script is to be run with "./gridcontrol_setup_mt_Run2.sh <year={16,17,18}> <channel={mt,et}>"
+### the script is to be run with "./gridcontrol_setup_mt_Run2.sh <year={16,17,18}> <channel={mt,et,tt}>"
 source /cvmfs/grid.desy.de/etc/profile.d/grid-ui-env.sh
 
 YEAR=$1
@@ -11,8 +11,12 @@ else
     if [[ $CHANNEL == "et" ]]; then
 	OUTDIR=./etau/20$YEAR
     else
-	echo "ERROR: please run the script with ./gridcontrol_setup_mt_Run2.sh <year={16,17,18}> <channel={mt,et}>"
+	if [[ $CHANNEL == "tt" ]]; then
+	    OUTDIR=./tautau/20$YEAR
+	else
+	    echo "ERROR: please run the script with ./gridcontrol_setup_mt_Run2.sh <year={16,17,18}> <channel={mt,et,tt}>"
 	exit
+	fi
     fi
 fi
 
